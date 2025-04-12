@@ -4,7 +4,7 @@ from places.models import Place
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 import json
-
+from django.urls import reverse
 
 def index(request):
     template = loader.get_template("start_page.html")
@@ -18,7 +18,7 @@ def index(request):
                 "properties": {
                     "title": place.title,
                     "placeId": place.placeId,
-                    "detailsUrl": place.detailsUrl,
+                    "detailsUrl": reverse("place_json", args=[place.placeId]),
                 },
             }
         )
@@ -30,8 +30,8 @@ def index(request):
 
 
 
-def place_detail(request, place_id):
-    place = get_object_or_404(Place, pk=place_id)
+def place_detail_json(request, place_id):
+    place = get_object_or_404(Place, placeId=place_id)
 
     place_json = {
         "title": place.title,

@@ -13,7 +13,7 @@ class Place(models.Model):
         null=True, 
         blank=True, 
         max_length=200,
-        default='/static/places/details-placeholder.json'  # Заглушка для URL
+        default='/static/places/details-placeholder.json'  
     )
     def __str__(self):
         return self.title
