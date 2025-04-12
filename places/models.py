@@ -8,7 +8,13 @@ class Place(models.Model):
     lng = models.FloatField(verbose_name="Долгота")
     lat = models.FloatField(verbose_name="Широта")
     placeId = models.CharField('placeId', null=True, blank=True, max_length=200)
-    detailsUrl = models.CharField('detailsUrl', null=True, blank=True, max_length=200)
+    detailsUrl = models.CharField(
+        'detailsUrl', 
+        null=True, 
+        blank=True, 
+        max_length=200,
+        default='/static/places/details-placeholder.json'  # Заглушка для URL
+    )
     def __str__(self):
         return self.title
 

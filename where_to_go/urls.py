@@ -24,6 +24,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.index),
     path("places/", include("places.urls")),
+    path(
+        "places/<int:place_id>/",
+        views.place_detail,
+    ),
 ]
 
 
