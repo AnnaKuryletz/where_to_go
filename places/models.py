@@ -21,12 +21,11 @@ class Place(models.Model):
 
 class Image(models.Model):
     position = models.SmallIntegerField(
-        default=0, verbose_name="Номер в списке", db_index=True
+        default=0, verbose_name="Позиция", db_index=True
     )
     image = models.ImageField(verbose_name="Картинка")
     place = models.ForeignKey(
         Place, on_delete=models.CASCADE, related_name="images", verbose_name="Место"
     )
-
     def __str__(self):
         return f"Картинка для {self.place}"
