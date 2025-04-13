@@ -5,8 +5,9 @@ from .models import Place, Image
 class ImageInline(admin.TabularInline):
     model = Image
     extra = 1
-    fields = ["image", "position"]  
     ordering = ["position"]
+    readonly_fields = ["preview"]
+    fields = ["image","preview", "position"]
 
 
 @admin.register(Place)
