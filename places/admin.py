@@ -12,9 +12,11 @@ class ImageInline(SortableInlineAdminMixin, admin.StackedInline):
 
     def preview(self, obj):
         if obj.image:
-            return format_html('<img src="{}" style="max-height: 200px;" />', obj.image.url)
+            return format_html(
+                '<img src="{}" style="max-height: 200px;" />', obj.image.url
+            )
         return "Нет изображения"
-    
+
     preview.short_description = "Превью"
 
 
@@ -29,6 +31,6 @@ class ImageAdmin(admin.ModelAdmin):
     list_display = ["display_image_info"]
     ordering = ["position"]
 
-    @admin.display(description='IMAGE')
+    @admin.display(description="IMAGE")
     def display_image_info(self, obj):
         return f"{obj.position} {obj.place}"

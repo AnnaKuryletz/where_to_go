@@ -6,6 +6,7 @@ from django.http import JsonResponse
 import json
 from django.urls import reverse
 
+
 def index(request):
     template = loader.get_template("start_page.html")
 
@@ -29,7 +30,6 @@ def index(request):
     return HttpResponse(rendered_page)
 
 
-
 def place_detail_json(request, place_id):
     place = get_object_or_404(Place, placeId=place_id)
 
@@ -38,8 +38,9 @@ def place_detail_json(request, place_id):
         "imgs": [image.image.url for image in place.images.all()],
         "description_short": place.description_short,
         "description_long": place.description_long,
-        "coordinates" : { "lng" : place.lng,
-                         "lat" : place.lat}
+        "coordinates": {"lng": place.lng, "lat": place.lat},
     }
 
-    return JsonResponse(place_json, json_dumps_params={"ensure_ascii": False, "indent": 2})
+    return JsonResponse(
+        place_json, json_dumps_params={"ensure_ascii": False, "indent": 2}
+    )
