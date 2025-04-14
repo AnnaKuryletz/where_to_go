@@ -29,14 +29,15 @@ def load_places(folder):
             places_jsons.append(json.load(json_file))
     for place_json in places_jsons:
         place, _ = Place.objects.get_or_create(
-            title=place_json['title'],
-            defaults={
-                "short_description": place_json['description_short'],
-                "long_description": place_json['description_long'],
-                "lng": place_json['coordinates']['lng'],
-                "lat": place_json['coordinates']['lat'],
-            },
+        title=place_json['title'],
+        defaults={
+        "short_description": place_json['description_short'],
+        "long_description": place_json['description_long'],
+        "lng": place_json['coordinates']['lng'],
+        "lat": place_json['coordinates']['lat'],
+        },
         )
+
         for img_url in place_json['imgs']:
             response = requests.get(img_url)
             response.raise_for_status()
