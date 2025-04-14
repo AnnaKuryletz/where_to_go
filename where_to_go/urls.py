@@ -26,7 +26,7 @@ urlpatterns = [
     path("places/", include("places.urls")),
     path("places/<str:place_id>/", views.place_detail_json, name="place_json"),
     path("tinymce/", include("tinymce.urls")),
-]
+] 
 
 
 from django.conf import settings
