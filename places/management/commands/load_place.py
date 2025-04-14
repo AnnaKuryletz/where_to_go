@@ -53,10 +53,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '-j',
-            '--json_folder',
-            required=True,
-        )
+        'json_url',
+        help='URL to JSON file with place data',
+    )
 
     def handle(self, *args, **options):
         load_places(options['json_folder'])
