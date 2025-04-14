@@ -1,11 +1,14 @@
 import os
 import json
 import requests
+import uuid
 
+from pathlib import Path
 from urllib.parse import unquote, urlparse
-from django.core.management.base import BaseCommand
-from django.core.files.base import ContentFile
+
 from places.models import Place, Image
+from django.core.files.base import ContentFile
+from django.core.management.base import BaseCommand
 
 
 def get_filename_from_url(url):
@@ -15,40 +18,53 @@ def get_filename_from_url(url):
     return filename
 
 
-class Command(BaseCommand):
-    help = 'Загружает место из JSON по ссылке'
+def load_places(folder):
+    json_files_paths = [
+        os.path.join(folder, filename) for filename in os.listdir(folder)
+        if filename.endswith(".json")
+    ]
 
-    def add_arguments(self, parser):
-        parser.add_argument('json_url', type=str, help='URL до JSON-файла')
-
-    def handle(self, *args, **options):
-        json_url = options['json_url']
-        self.stdout.write(f'📦 Загрузка: {json_url}')
-
-        response = requests.get(json_url)
-        response.raise_for_status()
-        place_json = response.json()
+    for path in json_files_paths:
+        with open(Path(path), 'r', encoding='utf-8') as json_file:
+            place_json = json.load(json_file)
 
         place, created = Place.objects.get_or_create(
             title=place_json['title'],
             defaults={
-                "description_short": place_json['description_short'],
-                "description_long": place_json['description_long'],
+                "short_description": place_json['description_short'],
+                "long_description": place_json['description_long'],
                 "lng": place_json['coordinates']['lng'],
                 "lat": place_json['coordinates']['lat'],
+                "placeId": str(uuid.uuid4()),
             },
         )
 
         if created:
-            self.stdout.write(f'✅ Место создано: {place.title}')
+            print(f"✅ Место создано: {place.title}")
         else:
-            self.stdout.write(f'ℹ️ Место уже существует: {place.title}')
+            print(f"🔁 Место уже существует: {place.title}")
 
         for img_url in place_json['imgs']:
-            img_response = requests.get(img_url)
-            img_response.raise_for_status()
-            image_content = ContentFile(img_response.content)
+            response = requests.get(img_url)
+            response.raise_for_status()
+            content = ContentFile(response.content)
             img_name = get_filename_from_url(img_url)
-            image = Image.objects.create(place=place)
-            image.image.save(img_name, image_content, save=True)
-            self.stdout.write(f'🖼 Загружено изображение: {img_name}')
+            image_object = Image.objects.create(place=place)
+            image_object.image.save(name=img_name, content=content, save=True)
+            print(f"🖼 Загружено изображение: {img_name}")
+
+
+class Command(BaseCommand):
+
+    help = 'Загружает места из JSON-файлов в указанной папке'
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '-j',
+            '--json_folder',
+            required=True,
+            help='Путь к папке с JSON-файлами'
+        )
+
+    def handle(self, *args, **options):
+        load_places(options['json_folder'])
