@@ -22,7 +22,7 @@ def load_place_from_data(place_json):
     place, created = Place.objects.get_or_create(
         title=place_json['title'],
         defaults={
-            "short_description": place_json['short_description'],
+            "description_short": place_json['description_short'],
             "description_long": place_json['description_long'],
             "lng": place_json['coordinates']['lng'],
             "lat": place_json['coordinates']['lat'],
