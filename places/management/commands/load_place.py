@@ -1,15 +1,14 @@
-import os
 import json
-import requests
+import os
 import uuid
-
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
-from places.models import Place, Image
+import requests
+
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
-
+from places.models import Image, Place
 
 def get_filename_from_url(url):
     url_part = urlparse(url).path
