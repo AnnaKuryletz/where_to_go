@@ -16,22 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from where_to_go import views
-from django.urls import include
+from places import views
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.index),
-    path("places/", include("places.urls")),
-    path("places/<str:place_id>/", views.place_detail_json, name="place_json"),
-    path("tinymce/", include("tinymce.urls")),
+    path("places/<str:place_id>/", views.place_detail_json, name="place_json"),  
 ] 
-
-
-from django.conf import settings
-from django.conf.urls.static import static
-
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

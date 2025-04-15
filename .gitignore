@@ -3,10 +3,17 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.pyc
+*.pyd
+*.pyo
+/__pycache__/
+*__pycache__
 # C extensions
 *.so
-
+db.sqlite3
+*.sqlite3
 # Distribution / packaging
+.DS_Store
+Thumbs.db
 media/
 .Python
 build/
@@ -26,6 +33,8 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+.idea
+.vscode
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
