@@ -24,6 +24,7 @@ class ImageInline(SortableInlineAdminMixin, admin.StackedInline):
 @admin.register(Place)
 class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     list_display = ["title"]
+    search_fields = ["title"] 
     inlines = [ImageInline]
 
 
@@ -31,6 +32,7 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
 class ImageAdmin(admin.ModelAdmin):
     list_display = ["display_image_info"]
     ordering = ["position"]
+    autocomplete_fields = ["place"] 
 
     @admin.display(description="IMAGE")
     def display_image_info(self, obj):
