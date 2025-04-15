@@ -8,14 +8,6 @@ class Place(models.Model):
     description_long = HTMLField(verbose_name="Подробное описание")
     lng = models.FloatField(verbose_name="Долгота")
     lat = models.FloatField(verbose_name="Широта")
-    placeId = models.CharField("placeId", null=True, blank=True, max_length=200)
-    detailsUrl = models.CharField(
-        "detailsUrl",
-        null=True,
-        blank=True,
-        max_length=200,
-        default="/static/places/details-placeholder.json",
-    )
 
     def __str__(self):
         return self.title
