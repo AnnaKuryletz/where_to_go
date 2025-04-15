@@ -3,7 +3,6 @@ from django.template import loader
 from places.models import Place
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-import json
 from django.urls import reverse
 
 
