@@ -17,8 +17,8 @@ def index(request):
                 "geometry": {"type": "Point", "coordinates": [place.lng, place.lat]},
                 "properties": {
                     "title": place.title,
-                    "placeId": place.placeId,
-                    "detailsUrl": reverse("place_json", args=[place.placeId]),
+                    "placeId": place.id,
+                    "detailsUrl": reverse("place_json", args=[place.id]),
                 },
             }
         )
@@ -30,7 +30,7 @@ def index(request):
 
 
 def place_detail_json(request, place_id):
-    place = get_object_or_404(Place, placeId=place_id)
+    place = get_object_or_404(Place, pk=place_id)
 
     place_json = {
         "title": place.title,

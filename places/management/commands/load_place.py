@@ -1,6 +1,5 @@
 import json
 import os
-import uuid
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
@@ -21,11 +20,10 @@ def load_place_from_data(place_json):
     place, created = Place.objects.get_or_create(
         title=place_json['title'],
         defaults={
-            "description_short": place_json['description_short'],
-            "description_long": place_json['description_long'],
+            "description_short": place_json['short_description'],
+            "description_long": place_json['long_description'],
             "lng": place_json['coordinates']['lng'],
-            "lat": place_json['coordinates']['lat'],
-            "placeId": str(uuid.uuid4()),
+            "lat": place_json['coordinates']['lat']
         },
     )
 
@@ -41,7 +39,7 @@ def load_place_from_data(place_json):
         img_name = get_filename_from_url(img_url)
         image_object = Image.objects.create(place=place)
         image_object.image.save(name=img_name, content=content, save=True)
-        print(f"🖼 Загружено изображение: {img_name}")
+        print(f" Загружено изображение: {img_name}")
 
 
 def load_places_from_folder(folder):
@@ -57,7 +55,7 @@ def load_places_from_folder(folder):
 
 
 def load_place_from_url(url):
-    print(f"📦 Загрузка: {url}")
+    print(f" Загрузка: {url}")
     response = requests.get(url)
     response.raise_for_status()
     place_json = response.json()
