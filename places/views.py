@@ -1,5 +1,5 @@
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.template import loader
 from django.urls import reverse
 
@@ -7,8 +7,6 @@ from places.models import Place
 
 
 def index(request):
-    template = loader.get_template("start_page.html")
-
     features = []
     for place in Place.objects.all():
         features.append(
@@ -25,8 +23,7 @@ def index(request):
 
     context = {"geo_json": {"type": "FeatureCollection", "features": features}}
 
-    rendered_page = template.render(context, request)
-    return HttpResponse(rendered_page)
+    return render(request, "start_page.html", context)
 
 
 def place_detail_json(request, place_id):
