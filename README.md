@@ -3,7 +3,7 @@
 Проект помогает отображать интересные места Москвы на карте. Контент можно удобно заполнять через админку, включая изображения и описание мест.
 Ссылка на сайт: https://annakurilec.pythonanywhere.com/
 
-![image](https://github.com/user-attachments/assets/fe299dca-3e88-486d-8fb8-978d94eac827)
+![image](https://github.com/user-attachments/assets/0bbd45e0-c56f-4e96-813a-3e1d010320ff)
 
 
 ## Установка и запуск
