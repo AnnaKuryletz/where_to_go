@@ -9,7 +9,7 @@ urlpatterns = (
     [
         path("", views.index),
         path("tinymce/", include("tinymce.urls")),
-        path("places/<str:place_id>/", views.place_detail_json, name="place_json"),
+        path("places/<str:place_id>/", views.place_detail_json, name="raw_place"),
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
