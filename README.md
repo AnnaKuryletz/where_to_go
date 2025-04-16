@@ -6,13 +6,13 @@
 ![image](https://github.com/user-attachments/assets/fe299dca-3e88-486d-8fb8-978d94eac827)
 
 
-## 🚀 Быстрый старт
+## Установка и запуск
 
 ### 1. Клонируй репозиторий
 
 ```bash
-git clone https://github.com/your-username/where-to-go.git
-cd where-to-go
+git clone https://github.com/AnnaKuryletz/where_to_go.git
+cd where_to_go
 ```
 ### 2. Установи зависимости
 Создай и активируй виртуальное окружение:
@@ -26,12 +26,14 @@ source venv/bin/activate  # или venv\Scripts\activate на Windows
 ```bash
 pip install -r requirements.txt
 ```
-### 3. Создай файл `.env`
+### 3. Настроить переменные окружения
+
+Создай файл `.env` и добавь туда:
 ```dotenv
 DEBUG=True
 SECRET_KEY=your-secret-key
-ALLOWED_HOSTS=127.0.0.1,localhost
 DB_NAME=db.sqlite3
+DJANGO_ALLOWED_HOSTS=yourdomain.com,localhost,127.0.0.1
 ```
 * `DEBUG ` - Булевый флаг, который включает/выключает режим отладки в Django.
 * `SECRET_KEY` - Секретный ключ, используемый для криптографической подписи в Django.
@@ -90,20 +92,20 @@ python3 manage.py runserver
 
 ```bash
 
-python3 manage.py load_places --json_folder=введите/путь/до/отдельной/папки/содержащей/исключительно/json-файлы/локаций
+python3 manage.py load_places --places_dir=введите/путь/до/отдельной/папки/содержащей/исключительно/json-файлы/локаций
 ```
 Эта команда загрузит все JSON-файлы из указанной папки и сохранит данные о местах и изображениях в базу данных.
 
 Пример:
 ```bash
 
-python3 manage.py load_places --json_folder=/path/to/json/folder
+python3 manage.py load_places --places_dir=/path/to/json/folder
 ```
 * Подгрузка из одного JSON-файла по URL:
   Если у вас есть URL, с которого нужно скачать JSON-файл, используйте команду:
 
 ```bash
-python3 manage.py load_places --json_url=https://example.com/data.json
+python3 manage.py load_places --place_url=https://example.com/data.json
 ```
 Эта команда загрузит данные с указанного URL и сохранит их в базу данных.
 ## ⚙️ Стек технологий
