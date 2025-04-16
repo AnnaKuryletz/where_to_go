@@ -35,10 +35,9 @@ def load_place_from_data(raw_place):
     for img_url in raw_place['imgs']:
         response = requests.get(img_url)
         response.raise_for_status()
-        content = ContentFile(response.content)
         img_name = get_filename_from_url(img_url)
-        image_object = Image.objects.create(place=place)
-        image_object.image.save(name=img_name, content=content, save=True)
+        content = ContentFile(response.content, name=img_name)
+        Image.objects.create(place=place, image=content)
         print(f" Загружено изображение: {img_name}")
 
 
