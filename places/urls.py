@@ -1,16 +1,9 @@
-from django.conf import settings
-from django.conf.urls.static import static
-from django.urls import include, path
+# places/urls.py
+from django.urls import path, include
+from . import views
 
-from places import views
-
-
-urlpatterns = (
-    [
-        path("", views.index),
-        path("tinymce/", include("tinymce.urls")),
-        path("places/<str:place_id>/", views.place_detail_json, name="raw_place"),
-    ]
-    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-)
+urlpatterns = [
+    path("", views.index),
+    path("tinymce/", include("tinymce.urls")),
+    path("places/<str:place_id>/", views.place_detail_json, name="place_json"),
+]
